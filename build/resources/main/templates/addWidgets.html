@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:th="http://www.thymeleaf.org">
+    <title>Ajoutez un nouveau Widget à votre Dashboard</title>
+    <link rel="stylesheet" href="../static/css/widget.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h1 class="row justify-content-md-center text-primary" id="add">Ajouter des widgets</h1>
+<p class="row justify-content-md-center text-muted border-bottom border-primary" id="dispo">Widgets disponibles</p>
+<table class="table  row justify-content-md-center" id="tableauwidget">
+    <ul class="text-muted">
+        <th scope="col" id = "w1" style="display: block"><a href="/addWidgets/w1">Steam - Nombre de joueurs par jeux</a></li>
+        <th scope="col" id="w2" style="display: block"><a href="/addWidgets/w2">Exchange - Taux de conversion</a></li>
+        <th scope="col" id="w3"style="display: block"><a href="/addWidgets/w3">Youtube - Infos sur la chaîne</a></li>
+        <th scope="col" id="w4"style="display: block"><a href="/addWidgets/w4">Discord - Online Serv</a></li>
+        <th scope="col" id="w5" style="display: block"><a href="/addWidgets/w5">W5</a></li>
+    </ul>
+</table>
+<h1 class="row justify-content-md-center text-danger" id="delete" >Supprimer des widgets sur votre dashboard</h1>
+
+<p class="row justify-content-md-center text-muted border-bottom border-danger " id="delete">Vos Widgets</p>
+<table class="table  row justify-content-md-center" id="tableauwidget">
+    <ul>
+        <th scope="col" id = "wc1" style="display: none"><a href="/delWidgets/w1">Steam - Nombre de joueurs par jeux</a></th>
+        <th scope="col" id = "wc2" style="display: none"><a href="/delWidgets/w2">Exchange - Taux de conversion</a></th>
+        <th scope="col" id = "wc3" style="display: none"><a href="/delWidgets/w3">Youtube - Infos sur la chaîne</a></th>
+        <th scope="col" id = "wc4" style="display: none"><a href="/delWidgets/w4">Discord - Online Serv</a></th>
+        <th scope="col" id = "wc5" style="display: none"><a href="/delWidgets/w5">W5</a></th>
+    </ul>
+</table>
+<script>
+    async function load(){
+        for(let i = 1; i < 6; i++){
+            const response = await fetch('http://localhost:8080/isWidgetSelected/w'+i+'')
+                .then(res => res.json())
+                .catch(e => {
+                    console.error({
+                        "message": "on noe !!",
+                        error: e
+                    })
+                })
+            if (response == true){
+                document.getElementById("w"+i).style.display = "none"
+            }
+        }
+        for(let j = 1; j < 6; j++){
+            const response = await fetch('http://localhost:8080/isWidgetSelected/w'+j+'')
+                .then(res => res.json())
+                .catch(e => {
+                    console.error({
+                        "message": "on noe !!",
+                        error: e
+                    })
+                })
+            if (response == true){
+                document.getElementById("wc"+j).style.display = "block"
+            }
+        }
+    }
+    load();
+</script>
+</body>
+</html>

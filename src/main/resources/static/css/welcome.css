@@ -1,0 +1,11 @@
+.container-cards-1,.container-cards-2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 150px;
+    width: 100%;
+}
+
+.test{
+    width: 33% !important;
+}
